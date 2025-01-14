@@ -13,7 +13,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.post('/api/chat', async (req, res) => {
-  
+  const data = {
+    "model": "gpt-3.5-turbo",
+    "messages": [
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": prompt}
+    ]
+}
+const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${OPENAI_KEY}`
+    },
+    body: JSON.stringify(data)
+});
+
+const json = await response.json();
 });
 
 app.post('/api/general', async (req, res) => {

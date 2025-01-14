@@ -27,6 +27,7 @@ async function sendChat() {
     });
     
     const json = await response.json();
+    messages.push(json.choices[0].message);
     const messages = json.choices[0].message.content;
     document.querySelector("ul").innerHTML += `<li>${messages}</li>`;
 
