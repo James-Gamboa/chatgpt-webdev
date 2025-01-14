@@ -1,4 +1,4 @@
-
+import OpenAI from "openai";
 
 const OPENAI_KEY = "";
 
@@ -33,7 +33,19 @@ const json = await response.json();
 });
 
 app.post('/api/general', async (req, res) => {
-  
+
+const openai = new OpenAI();
+
+async function main() {
+  const completion = await openai.chat.completions.create({
+    messages: [{ role: "developer", content: "You are a helpful assistant." }],
+    model: "gpt-4o-mini",
+  });
+
+  console.log(completion.choices[0]);
+}
+
+main();
 });
 
 app.post('/api/image', async (req, res) => {
